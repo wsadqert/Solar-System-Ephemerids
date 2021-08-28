@@ -21,23 +21,36 @@ def get_loc():
             elif mode == 3:
                 address = input("address: ")
             elif mode == 4:
-                lat, long = input("lat: "), input("long: ")
-                inf.set_loading()
-                loc = EarthLocation.from_geodetic(lat=lat, lon=long)
+                try:
+                    lat, long = float(input("lat: ")), float(input("long: "))
+                    inf.set_loading()
+                    loc = EarthLocation.from_geodetic(lat=lat, lon=long)
+                except ValueError:
+                    raise TypeError
             else:
                 raise ValueError
             if mode in range(1, 4):
                 inf.set_loading()
                 loc = EarthLocation.of_address(address)
         except ValueError:
-            inf.set_error('invalid choice')
-        except astropy.coordinates.name_resolve.NameResolveError:
-            inf.set_error(f'Unable to retrieve coordinates for address \'{address}\'')
-        else:
-            inf.set_success(
-                f"location found: lat={round(loc.lat.deg, 3)}, long={round(loc.lon.deg, 3)}"
-            )
-            break
-        finally:
+            inf.set_error(False, 'invalid choice')
             print()
+        except TypeError:
+            inf.set_error(False, 'invalid data')
+            print()
+        except astropy.coordinates.name_resolve.NameResolveError:
+            inf.set_error(
+                False,
+                f'Unable to retrieve coordinates for address \'{address}\'')
+            print()
+        except:
+            raise
+        else:
+            if mode!=4:
+                inf.set_success(
+                    False,
+                    f"location found: lat={round(loc.lat.deg, 3)}, long={round(loc.lon.deg, 3)}")
+            else:
+                inf.set_success(False, 'ok')
+            break
     return loc

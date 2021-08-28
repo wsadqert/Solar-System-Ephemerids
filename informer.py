@@ -5,8 +5,26 @@ class Informer:
     def set_loading(self, text="loading..."):
         print(f"[...] {text}" + ' ' * 10, end='\r')
 
-    def set_success(self, text="success!"):
-        print(f"[+] {text}" + ' ' * 10)
+    def set_info(self, ret: bool, text="info"):
+        if ret:
+            print(f"[i] {text}" + ' ' * 10, end='\r')
+        else:
+            print(f"[i] {text}" + ' ' * 10, end='\n')
 
-    def set_error(self, text="error!"):
-        print(f"[×] {text}" + ' ' * 10)
+    def set_success(self, ret: bool, text="success!"):
+        if ret:
+            print(f"[+] {text}" + ' ' * 10, end='\r')
+        else:
+            print(f"[+] {text}" + ' ' * 10, end='\n')
+
+    def set_warning(self, ret: bool, text="warning!"):
+        if ret:
+            print(f"[!] {text}" + ' ' * 10, end='\r')
+        else:
+            print(f"[!] {text}" + ' ' * 10, end='\n')
+
+    def set_error(self, ret: bool, text="error!"):
+        if ret:
+            print(f"[×] {text}" + ' ' * 10, end='\r')
+        else:
+            print(f"[×] {text}" + ' ' * 10, end='\n')
