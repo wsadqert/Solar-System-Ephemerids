@@ -25,7 +25,7 @@ python-versions = ">=3.7"
 
 [[package]]
 name = "prettytable"
-version = "2.1.0"
+version = "2.2.0"
 description = "A simple Python library for easily displaying tabular data in a visually appealing ASCII table format"
 category = "main"
 optional = false
@@ -63,7 +63,7 @@ python-versions = "*"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "7fffa0005fd5946acc0dcda74e3f3d4bbdf7327b5141ce6a83c6bb8a83b7f669"
+content-hash = "cef3485c8dadf1e627da3af30ffbff2ebf04db3d23d007f01d0961f90dc6ad23"
 
 [metadata.files]
 astropy = [
@@ -115,8 +115,8 @@ numpy = [
     {file = "numpy-1.21.1.zip", hash = "sha256:dff4af63638afcc57a3dfb9e4b26d434a7a602d225b42d746ea7fe2edf1342fd"},
 ]
 prettytable = [
-    {file = "prettytable-2.1.0-py3-none-any.whl", hash = "sha256:bb5abc72bdfae6f3cdadb04fb7726f6915af0ddb7c897a41d4ad7736d9bfd8fd"},
-    {file = "prettytable-2.1.0.tar.gz", hash = "sha256:5882ed9092b391bb8f6e91f59bcdbd748924ff556bb7c634089d5519be87baa0"},
+    {file = "prettytable-2.2.0-py3-none-any.whl", hash = "sha256:b186f1db9c9377cb552cfa95a3b7a0feab6ec55d7cad7e0763bdcbea1e8f4687"},
+    {file = "prettytable-2.2.0.tar.gz", hash = "sha256:bd81678c108e6c73d4f1e47cd4283de301faaa6ff6220bcd1d4022038c56b416"},
 ]
 pyerfa = [
     {file = "pyerfa-2.0.0-cp37-cp37m-macosx_10_9_x86_64.whl", hash = "sha256:36cd8a6e43130746e51743548b0f36a79fc7aa95566878cd99ba8084b6fcf59e"},
