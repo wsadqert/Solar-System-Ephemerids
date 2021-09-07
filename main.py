@@ -11,7 +11,7 @@ try:
     from prettytable import PrettyTable
     from convert_coord import convert_coord
     from get_loc import get_loc
-    from solar_system_full import 
+    from ephems import solar_system_full, custom_bodies
 
     def update_time():
         global time_now, time_str
@@ -49,7 +49,7 @@ try:
                 inf.set_error(False, 'invalid choice')
                 print()
                 continue
-        inf.set_success(False, f'\ntime has been set: {time_str}')
+        inf.set_success(False, f'time has been set: {time_str}')
 
     inf.set_success(True, 'ready to work')
     time.sleep(0.5)
@@ -59,7 +59,7 @@ try:
     table = PrettyTable()
     table.field_names = [
         '№', 'Name of body', 'Right ascension, hms', 'Declination, dms',
-        'Azimuth, °', 'Altitude, °', 'Distance, AU'
+        'Azimuth, °', 'Altitude, °', 'Distance'
     ]
 
     solar_system_ephemeris.bodies = list(solar_system_ephemeris.bodies)
@@ -68,8 +68,8 @@ try:
 
     update_time()
 
-    inf.set_loading('calculating')
-
+    #solar_system_full(time_now=time_now, loc=loc, table=table)
+    custom_bodies(time_now=time_now, loc=loc, table=table)
     
 except KeyboardInterrupt:
     print('\n')
