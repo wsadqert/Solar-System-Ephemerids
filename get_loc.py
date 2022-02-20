@@ -5,7 +5,7 @@ import astropy
 inf = Informer()
 
 
-def get_loc():
+def get_loc() -> EarthLocation:
     while True:
         print('''Location entry options:
         1. By address (city + country)

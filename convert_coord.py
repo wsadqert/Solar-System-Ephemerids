@@ -1,4 +1,4 @@
-def convert_coord(coord: str, type: str):
+def convert_coord(coord: str, type: str) -> str:
     if type == 'ra':
         l = coord.replace('h', ' ').replace('m', ' ').replace('s', ' ').split()
         return l[0] + 'h ' + l[1] + 'm ' + str(round(float(l[2]), 3)) + 's'
