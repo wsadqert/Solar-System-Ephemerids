@@ -16,7 +16,7 @@ try:
     def update_time():
         global time_now, time_str
         while True:
-            print('''Time entry options:    
+            print('''\nTime entry options:    
     now. Getting time set in system
     custom. Нou must manually enter the time''')
             time_mode = input('you choice: ')
@@ -50,6 +50,7 @@ try:
                 print()
                 continue
         inf.set_success(False, f'time has been set: {time_str}')
+        return (time_now, time_str)
 
     inf.set_success(True, 'ready to work')
     time.sleep(0.5)
@@ -66,10 +67,10 @@ try:
     solar_system_ephemeris.bodies.remove('earth')
     solar_system_ephemeris.bodies.remove('earth-moon-barycenter')
 
-    update_time()
+    #update_time()
 
     #solar_system_full(time_now=time_now, loc=loc, table=table)
-    custom_bodies(time_now=time_now, loc=loc, table=table)
+    custom_bodies(upd_time=update_time, loc=loc, table=table)
     
 except KeyboardInterrupt:
     print('\n')

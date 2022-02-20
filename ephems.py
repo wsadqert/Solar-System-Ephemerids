@@ -39,19 +39,19 @@ def solar_system_full(time_now, loc, table):
             time.sleep(0.1)
 
 
-def custom_bodies(time_now, loc, table):
+def custom_bodies(upd_time, loc, table):
     from informer import Informer
     inf = Informer()
     from astropy.coordinates import solar_system_ephemeris, AltAz, SkyCoord  #, EarthLocation
     from astropy.coordinates import get_body, get_moon, get_sun
     import astropy
-    import numpy as np
+    #import numpy as np
     import time
     from convert_coord import convert_coord
 
-    bodies_to_compute = inf.set_question(
-        str,
-        'enter bodies for calculation, separating their by space').split()
+    bodies_to_compute = input("[?] enter bodies for calculation, separating their by space: ").split()
+    global time_now
+    time_now, time_str = upd_time()
     inf.set_loading('calculating')
 
     with solar_system_ephemeris.set('builtin'):
