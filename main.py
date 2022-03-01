@@ -5,9 +5,8 @@ from get_loc import get_loc
 from ephems import solar_system_full, custom_bodies
 from update_time import update_time
 
-inf = Informer()
+inf: Informer = Informer()
 inf.set_loading('initializing')
-
 
 inf.set_success(True, 'ready to work')
 time.sleep(0.5)
@@ -26,9 +25,11 @@ bodies_to_compute: tuple[str] = tuple(input("[?] enter bodies for calculation, s
 
 time_now, _ = update_time()
 
-if bodies_to_compute == ['all']:
+if bodies_to_compute == ('all',):
 	solar_system_full(time_now, loc)
-elif 'all' in bodies_to_compute:
+
+elif 'all' in bodies_to_compute and bodies_to_compute != ('all',):
 	raise ValueError()
+
 else:
 	custom_bodies(time_now, loc, bodies_to_compute)

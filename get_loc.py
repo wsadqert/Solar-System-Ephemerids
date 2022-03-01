@@ -35,15 +35,11 @@ def get_loc() -> EarthLocation:
 				loc = EarthLocation.of_address(address)
 
 		except astropy.coordinates.name_resolve.NameResolveError:
-			inf.set_error(
-				False,
-				f"Unable to retrieve coordinates for address '{address}'")
+			inf.set_error(False, f"Unable to retrieve coordinates for address '{address}'")
 
 		else:
 			if mode != 4:
-				inf.set_success(
-					False,
-					f"location found: lat = {round(loc.lat.deg, 3)}, long = {round(loc.lon.deg, 3)}")
+				inf.set_success(False, f"location found: lat = {round(loc.lat.deg, 3)}, long = {round(loc.lon.deg, 3)}")
 			else:
 				inf.set_success(False, 'ok')
 			break
