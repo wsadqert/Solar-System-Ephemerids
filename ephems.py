@@ -50,7 +50,7 @@ def solar_system_full(time_now: Time, loc: EarthLocation):
 		print(table)
 
 
-def custom_bodies(time_now: Time, loc: EarthLocation, bodies_to_compute: tuple[str]):
+def custom_bodies(time_now: Time, loc: EarthLocation, bodies_to_compute: tuple[str], conn: bool):
 	inf.set_loading('calculating...')
 
 	with solar_system_ephemeris.set('builtin'):
@@ -62,7 +62,7 @@ def custom_bodies(time_now: Time, loc: EarthLocation, bodies_to_compute: tuple[s
 					body = get_moon(time_now)
 				else:
 					body = get_body(body_str, time_now, loc)
-			else:
+			elif conn:
 				try:
 					body = SkyCoord.from_name(body_str)
 				except astropy.coordinates.name_resolve.NameResolveError:

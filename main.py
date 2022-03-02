@@ -1,27 +1,37 @@
 from informer import Informer
 from astropy.coordinates import EarthLocation, solar_system_ephemeris
-import time
-from get_loc import get_loc
+from get_loc import get_loc, get_loc_offline
 from ephems import solar_system_full, custom_bodies
 from update_time import update_time
+import requests
 
 inf: Informer = Informer()
 inf.set_loading('initializing')
 
-inf.set_success(True, 'ready to work')
-time.sleep(0.5)
+try:
+	conn: bool = requests.request('GET', 'https://google.com', timeout=1) == 200
+except requests.exceptions.ConnectionError:
+	inf.set_warning(False, 'no internet connection')
+	conn: bool = False
 
-loc: EarthLocation = get_loc()
+inf.set_success(True, 'ready to work')
+if conn:
+	loc: EarthLocation = get_loc()
+else:
+	loc: EarthLocation = get_loc_offline()
 
 solar_system_ephemeris.bodies = list(solar_system_ephemeris.bodies)
 solar_system_ephemeris.bodies.remove('earth')
 solar_system_ephemeris.bodies.remove('earth-moon-barycenter')
 
-print(
-	"available bodies to compute: 'all', 'sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', "
-	"'neptune'")
+print("Available bodies of solar system to compute: 'all', 'sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn',"
+	" 'uranus', 'neptune'")
 
-bodies_to_compute: tuple[str] = tuple(input("[?] enter bodies for calculation, separating their by space: ").lower().split())
+if conn:
+	print("You also can enter id of sought object (ex. M1, NGC553)")
+
+bodies_to_compute: tuple[str] = tuple(
+	input("[?] enter bodies for calculation, separating their by space: ").lower().split())
 
 time_now, _ = update_time()
 

@@ -25,8 +25,8 @@ def get_loc() -> EarthLocation:
 					lat, long = float(input("latitude: ")), float(input("longitude: "))
 					inf.set_loading()
 					loc: EarthLocation = EarthLocation.from_geodetic(lat=lat, lon=long)
-				except ValueError:
-					inf.set_error(False, "invalid data (could not convert string to float)")
+				except (ValueError, astropy.units.UnitsError):
+					inf.set_error(False, "invalid data")
 			else:
 				inf.set_error(False, "incorrect choice")
 
@@ -45,3 +45,22 @@ def get_loc() -> EarthLocation:
 			break
 	print()
 	return loc
+
+
+def get_loc_offline() -> EarthLocation:
+	while True:
+		print("""Location entry options:
+	1. By coordinates""")
+		try:
+			lat, long = float(input("latitude: ")), float(input("longitude: "))
+			inf.set_loading()
+			loc: EarthLocation = EarthLocation.from_geodetic(lat=lat, lon=long)
+		except (ValueError, astropy.units.UnitsError):
+			inf.set_error(False, "invalid data")
+			continue
+		inf.set_success(False, 'ok')
+		break
+
+	print()
+	return loc
+	pass
