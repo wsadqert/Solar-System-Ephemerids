@@ -6,16 +6,16 @@ from update_time import update_time
 import requests
 
 inf: Informer = Informer()
-inf.set_loading('initializing')
+inf.set_loading(False, 'initializing')
 
 try:
 	conn: bool = requests.request('GET', 'https://google.com', timeout=1) == 200
+	inf.set_loaded()
 except requests.exceptions.ConnectionError:
+	inf.set_loaded()
 	inf.set_warning(False, 'no internet connection')
 	conn: bool = False
 	print()
-
-inf.set_success(True, 'ready to work')
 
 if conn:
 	loc: EarthLocation = get_loc()

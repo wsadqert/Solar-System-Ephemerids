@@ -1,3 +1,4 @@
+from time import sleep
 import astropy
 from astropy.time import Time
 from astropy.coordinates import EarthLocation, SkyCoord, solar_system_ephemeris, AltAz, get_body, get_moon, get_sun, Distance
@@ -12,6 +13,8 @@ table.field_names = ['№', 'Name of body', 'Right ascension, hms', 'Declination
 
 
 def solar_system_full(time_now: Time, loc: EarthLocation):
+	inf.set_loading(False, 'calculating')
+
 	with solar_system_ephemeris.set('builtin'):
 		for i, body_str in enumerate(solar_system_ephemeris.bodies):
 			if body_str == 'sun':
@@ -45,13 +48,13 @@ def solar_system_full(time_now: Time, loc: EarthLocation):
 				dist_str
 			])
 
-		inf.set_success(False, 'calculated!')
+		inf.set_loaded()
 		print()
 		print(table)
 
 
 def custom_bodies(time_now: Time, loc: EarthLocation, bodies_to_compute: tuple[str], conn: bool):
-	inf.set_loading('calculating...')
+	inf.set_loading(False, 'calculating')
 
 	with solar_system_ephemeris.set('builtin'):
 		for i, body_str in enumerate(bodies_to_compute):
@@ -92,6 +95,7 @@ def custom_bodies(time_now: Time, loc: EarthLocation, bodies_to_compute: tuple[s
 				dist_str,
 				])
 
-		inf.set_success(False, 'calculated!')
+		inf.set_loaded()
 		print()
+		sleep(1)
 		print(table)
