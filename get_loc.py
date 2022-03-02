@@ -43,7 +43,6 @@ def get_loc() -> EarthLocation:
 			else:
 				inf.set_success(False, 'ok')
 			break
-	print()
 	return loc
 
 
@@ -61,6 +60,5 @@ def get_loc_offline() -> EarthLocation:
 		inf.set_success(False, 'ok')
 		break
 
-	print()
 	return loc
 	pass
