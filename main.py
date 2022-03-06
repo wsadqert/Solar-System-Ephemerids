@@ -1,5 +1,6 @@
 from informer import Informer
 from astropy.coordinates import EarthLocation, solar_system_ephemeris
+from astropy.time import Time
 from get_loc import get_loc, get_loc_offline
 from ephems import solar_system_full, custom_bodies
 from update_time import update_time
@@ -9,7 +10,7 @@ inf: Informer = Informer()
 inf.set_loading(False, 'initializing')
 
 try:
-	conn: bool = requests.request('GET', 'https://google.com', timeout=1) == 200
+	conn: bool = requests.request('GET', 'https://ya.ru/', timeout=1) == 200
 	inf.set_loaded()
 except requests.exceptions.ConnectionError:
 	inf.set_loaded()
@@ -22,7 +23,7 @@ if conn:
 else:
 	loc: EarthLocation = get_loc_offline()
 
-time_now, _ = update_time()
+time_now: Time = update_time()
 
 print()
 
@@ -30,7 +31,7 @@ solar_system_ephemeris.bodies = list(solar_system_ephemeris.bodies)
 solar_system_ephemeris.bodies.remove('earth')
 solar_system_ephemeris.bodies.remove('earth-moon-barycenter')
 
-print("Available bodies of solar system to compute: 'all', 'sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'")
+print(f"Available bodies to compute: 'all', {str(solar_system_ephemeris.bodies)[1:-1]}")
 if conn:
 	print("You also can enter catalogue id of object (ex. M1, NGC553)")
 

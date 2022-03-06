@@ -5,7 +5,7 @@ from informer import Informer
 inf: Informer = Informer()
 
 
-def update_time() -> tuple[Time, str]:
+def update_time() -> Time:
 	while True:
 		print('''\nTime entry options:\n\tnow. Getting time set in system\n\tcustom. You must manually enter the time''')
 
@@ -50,4 +50,4 @@ def update_time() -> tuple[Time, str]:
 			continue
 
 	inf.set_success(False, f'time has been set: {time_str}')
-	return time_now, time_str
+	return time_now
