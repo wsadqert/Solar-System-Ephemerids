@@ -1,6 +1,13 @@
+#  Copyright (c) 2022.
+#
+#
+#
+
 import time
+
 from astropy.time import Time
-from informer import Informer
+
+from ephemerids.informer import Informer
 
 inf: Informer = Informer()
 
@@ -25,16 +32,16 @@ def update_time() -> Time:
 
 			values: list[int] = [
 					int(input(comp + ': '))
-					for comp in ['hour', 'min', 'sec', 'day', 'month', 'year']
+					for comp in ['hour', 'min_', 'sec', 'day', 'month', 'year']
 				]
 
-			hour, min, sec, day, month, year = values
+			hour, min_, sec, day, month, year = values
 
 			if year not in range(1900, 2101):
 				inf.set_error(False, "invalid data (year must be in range 1900-2100 AD)")
 				continue
 
-			time_str: str = f"{year}-{month}-{day} {hour}:{min}:{sec}"
+			time_str: str = f"{year}-{month}-{day} {hour}:{min_}:{sec}"
 
 			try:
 				time_now: Time = Time(time_str, format='iso')

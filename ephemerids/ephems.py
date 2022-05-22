@@ -1,10 +1,17 @@
+#  Copyright (c) 2022.
+#
+#
+#
+
 from time import sleep
+
 import astropy
-from astropy.time import Time
 from astropy.coordinates import EarthLocation, SkyCoord, solar_system_ephemeris, AltAz, get_body, get_moon, get_sun, Distance
-from convert_coord import convert_coord
+from astropy.time import Time
 from prettytable import PrettyTable
-from informer import Informer
+
+from ephemerids.convert_coord import convert_coord
+from ephemerids.informer import Informer
 
 inf: Informer = Informer()
 
