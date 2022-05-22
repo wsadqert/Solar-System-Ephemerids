@@ -1,8 +1,3 @@
-#  Copyright (c) 2022.
-#
-#
-#
-
 import http.client as httplib
 
 from astropy.coordinates import EarthLocation, solar_system_ephemeris

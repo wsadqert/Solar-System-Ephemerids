@@ -1,7 +1,3 @@
-#  Copyright (c) 2022.
-#
-#
-
 from typing import Literal
 
 

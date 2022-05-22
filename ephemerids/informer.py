@@ -1,6 +1,7 @@
 #  Copyright (c) 2022.
 #
 #
+#
 
 class Informer:
 	def __init__(self):

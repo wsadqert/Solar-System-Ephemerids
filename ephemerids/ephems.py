@@ -1,8 +1,3 @@
-#  Copyright (c) 2022.
-#
-#
-#
-
 from time import sleep
 
 import astropy

@@ -1,8 +1,3 @@
-#  Copyright (c) 2022.
-#
-#
-#
-
 location_entry_options = """Location entry options:
 	1. By address (city + country)
 	2. By address (house + street + city + country)

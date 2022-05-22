@@ -1,8 +1,3 @@
-#  Copyright (c) 2022.
-#
-#
-#
-
 import astropy
 from astropy.coordinates import EarthLocation
 
