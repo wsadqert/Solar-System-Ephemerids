@@ -18,6 +18,7 @@ def get_loc() -> EarthLocation:
 			
 		if mode not in (1, 2, 3, 4):
 			inf.set_error(False, "incorrect choice")
+			continue
 		
 		match mode:
 			case 1:
