@@ -1,16 +1,17 @@
 import http.client as httplib
 
-from astropy.coordinates import EarthLocation, solar_system_ephemeris
+from astropy.coordinates import EarthLocation
 from astropy.time import Time
 from rich.traceback import install
 
-from ephemerids.ephems import solar_system_full, custom_bodies
+from ephemerids._constants import *
+from ephemerids.ephems import custom_bodies, solar_system_full
 from ephemerids.get_location import get_loc, get_loc_offline
 from ephemerids.informer import Informer
 from ephemerids.update_time import update_time
 
 inf: Informer = Informer()
-inf.set_loading(False, 'initializing')
+inf.set_loading('initializing')
 install(width=300, show_locals=True)
 
 
@@ -19,7 +20,7 @@ def have_internet():
 	try:
 		conn.request("HEAD", '/')
 		return True
-	except Exception:
+	except OSError:
 		return False
 	finally:
 		conn.close()
@@ -28,8 +29,10 @@ def have_internet():
 conn = have_internet()
 inf.set_loaded()
 
+print()
+
 if not conn:
-	inf.set_warning(False, 'no internet connection')
+	inf.set_warning(f'no internet connection')
 	conn: bool = False
 	print()
 
@@ -38,25 +41,27 @@ if conn:
 else:
 	loc: EarthLocation = get_loc_offline()
 
-time_now: Time = update_time()
-
 print()
 
-solar_system_ephemeris.bodies = list(solar_system_ephemeris.bodies)
-solar_system_ephemeris.bodies.remove('earth')
-solar_system_ephemeris.bodies.remove('earth-moon-barycenter')
+time_now: Time = update_time()
 
-print(f"Available bodies to compute: 'all', {str(solar_system_ephemeris.bodies)[1:-1]}")
+solar_system_ephemeris.bodies = bodies
+
+print('\n', available_bodies)
+
 if conn:
-	print("You also can enter catalogue id of object (ex. M1, NGC553)")
+	print(body_id_hint)
 
-bodies_to_compute: tuple[str] = tuple(input("[?] enter bodies for calculation, separating their by space: ").lower().split())
+bodies_to_compute: tuple[str] = tuple(inf.set_question("enter bodies for calculation, separating their by space").lower().split())
 
-if bodies_to_compute == ('all',):
-	solar_system_full(time_now, loc)
-
-elif 'all' in bodies_to_compute and bodies_to_compute != ('all',):
-	raise ValueError()
-
-else:
-	custom_bodies(time_now, loc, bodies_to_compute, conn)
+while True:
+	if bodies_to_compute == ('all',):
+		solar_system_full(time_now, loc)
+		break
+	
+	elif 'all' in bodies_to_compute:
+		inf.set_error('incorrect input!', None, False)
+	
+	else:
+		custom_bodies(time_now, loc, bodies_to_compute, conn)
+		break
